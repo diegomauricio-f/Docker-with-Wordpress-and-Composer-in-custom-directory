@@ -1,0 +1,4 @@
+src/vendor
+src/wp
+src/app/plugins
+.env

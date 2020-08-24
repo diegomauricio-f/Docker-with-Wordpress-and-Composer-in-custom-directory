@@ -1,0 +1,39 @@
+{
+    "repositories": [
+        {
+            "type":"vcs",
+            "url":"https://github.com/Seldaek/monolog.git"
+        },
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wordpress/wordpress",
+                "type":"webroot",
+                "version": "5.5",
+                "dist": {
+                    "url": "https://github.com/WordPress/WordPress/archive/5.5.zip",
+                    "type": "zip"
+                },
+                "require":{
+                    "fancyguy/webroot-installer": "^1.0"
+                }
+            }
+        }
+    ],
+    "require":{
+        "wordpress/wordpress":"5.5",
+        "wpackagist-plugin/akismet":"dev-trunk",
+        "wpackagist-plugin/wordpress-seo":">=7.0.2"
+    },
+    "extra":{
+        "installer-paths": {
+            "app/plugins/{$name}": ["type:wordpress-plugin"]
+        },
+        "webroot-dir":"wp",
+        "webroot-package":"wordpress/wordpress"
+    }
+}

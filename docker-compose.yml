@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  php:
+    build: ./php
+    ports:
+      - 9000:9000
+    volumes:
+      - ./src:/var/www/html
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html
+      - ./conf:/etc/nginx/conf.d/
+    depends_on:
+      - php
+    
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    volumes:
+      - mysqldata-volume:/var/lib/mysql
+    depends_on:
+      - php
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+volumes:
+  mysqldata-volume:
